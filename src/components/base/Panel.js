@@ -7,7 +7,7 @@ var template =
   </div>
   <slot name="panel-table"></slot>
   <slot name="panel-list"></slot>
-  <div class="panel-footer"><slot name="panel-footer"></slot></div>
+  <div class="panel-footer" :if="!noFooter"><slot name="panel-footer"></slot></div>
   <slot name="panel-dialog"></slot>
 </div>
 `
@@ -20,6 +20,7 @@ export default {
   },
   props: {
     title: '',
-    style: 'default'
+    style: 'default',
+    noFooter: false
   }
 }

@@ -65,6 +65,7 @@ function Router (options) {
 }
 
 import ListPanel from '../page/ListPanel'
+import DropdownPanel from '../page/DropdownPanel'
 
 export default new Router({
   routes: [
@@ -80,6 +81,11 @@ export default new Router({
       path: '/list',
       title: '列表',
       component: ListPanel
+    },
+    {
+      path: '/dropdown',
+      title: '下拉菜单',
+      component: DropdownPanel
     }
   ]
 })

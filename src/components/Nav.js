@@ -17,8 +17,8 @@ export default {
         path: '/list',
         active: false
       },{
-        title: 'page2',
-        path: '/page2',
+        title: '下拉菜单',
+        path: '/dropdown',
         active: false
       }]
     }

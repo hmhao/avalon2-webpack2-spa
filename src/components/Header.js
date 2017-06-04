@@ -29,7 +29,7 @@ let template =
       <li><button class="btn btn-primary" :text="loginText" :click="toggleLogin"></button></li>
     </ul>
   </div>
-  <login :widget="[$$ref.login]" />
+  <ms-login :widget="[$$ref.login]" />
 </div>
 `
 let toggleDelay = 200
