@@ -1,11 +1,16 @@
 import Panel from '@/components/base/Panel'
 import Dropdown from '@/components/base/Dropdown'
+import DropdownLi from '@/components/base/DropdownLi'
 
 let template = 
 `
 <ms-panel :widget="[$$ref.panel]">
   <div slot="panel-bar">
     <ms-dropdown :for="d in dropdowns" :widget="[d]" />
+    <ul class="nav nav-pills">
+      <li class="active"><a href="#">Regular link</a></li>
+      <ms-dropdown-li :for="d in dropdownlis" :widget="[d]" />
+    </ul>
   </div>
 </ms-panel>
 `
@@ -18,7 +23,7 @@ export default {
       dropdowns: [{
         type: 'btn-group',
         text: 'abc',
-        list: ['1', '2', '3', '4']
+        list: ['1', '2', '', '3', '4']
       }, {
         text: 'efg',
         trigger: 'hover',
@@ -32,6 +37,25 @@ export default {
           text: 'qq',
           href: 'http://www.qq.com'
         }]
+      }],
+      dropdownlis: [{
+        text: 'abc',
+        list: ['1', '2', '', '3', '4']
+      }, {
+        text: 'efg',
+        trigger: 'hover',
+        list: [{
+          text: 'baidu',
+          href: 'http://www.baidu.com',
+          cb (evt) {
+            return evt.preventDefault()
+          }
+        },
+        '', 
+        {
+          text: 'qq',
+          href: 'http://www.qq.com'
+        }]
       }]
     }
   },
@@ -42,5 +66,5 @@ export default {
     props: {
       noFooter: true
     }
-  }, Dropdown]
+  }, Dropdown, DropdownLi]
 }
