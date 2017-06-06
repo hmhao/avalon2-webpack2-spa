@@ -66,6 +66,7 @@ function Router (options) {
 
 import ListPanel from '../page/ListPanel'
 import DropdownPanel from '../page/DropdownPanel'
+import TabsPanel from '../page/TabsPanel'
 
 export default new Router({
   routes: [
@@ -86,6 +87,11 @@ export default new Router({
       path: '/dropdown',
       title: '下拉菜单',
       component: DropdownPanel
+    },
+    {
+      path: '/tabs',
+      title: '标签卡',
+      component: TabsPanel
     }
   ]
 })

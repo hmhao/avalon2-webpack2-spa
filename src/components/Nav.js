@@ -20,6 +20,10 @@ export default {
         title: '下拉菜单',
         path: '/dropdown',
         active: false
+      },{
+        title: '标签卡',
+        path: '/tabs',
+        active: false
       }]
     }
   },

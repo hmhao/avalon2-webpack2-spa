@@ -8,9 +8,8 @@
 * 父组件可通过$$ref引用子组件，但需要显式声明
 * 加入官网路由并改造
 * 加入es6-promise、cookie_js、[avalonx](https://github.com/hmhao/avalonx)
-* 提供基于Bootstrap2的基础组件Alert、Dropdown、Modal、Pagination、Panel（后续待补充其他）
+* 提供基于Bootstrap2的基础组件Alert、Dropdown、Modal、Pagination、Panel、Tabs（后续待补充其他）
 
-<span id="component"></span>
 ## 组件书写
 现支持
 * data：组件内部属性
@@ -22,6 +21,7 @@
 * events：组件对外分发事件的声明
 * components：组件依赖的子组件
 
+<span id="component"></span>
 ```
 // 定义模板
 var template =
