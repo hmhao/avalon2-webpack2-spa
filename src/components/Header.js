@@ -29,7 +29,7 @@ let template =
       <li><button class="btn btn-primary" :text="loginText" :click="toggleLogin"></button></li>
     </ul>
   </div>
-  <ms-login :widget="[$$ref.login]" />
+  <ms-login :ref="login" />
 </div>
 `
 let toggleDelay = 200
@@ -77,8 +77,7 @@ export default {
       toggleTimer = setTimeout(()=>this.showUserbox = isEnter, toggleDelay)
     }
   },
-  components: [{
-    component: Login,
-    $$ref: 'login'
-  }]
+  components: {
+    Login
+  }
 }

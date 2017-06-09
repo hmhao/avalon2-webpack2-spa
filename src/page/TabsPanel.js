@@ -3,9 +3,10 @@ import Tabs from '@/components/base/Tabs'
 
 let template = 
 `
-<ms-panel :widget="[$$ref.panel]">
+<ms-panel :ref="panel">
   <div slot="panel-bar">
-    <ms-tabs :widget="[$$ref.tabs]" />
+    <ms-tabs :widget="[tabs1]" :ref="tabs1" />
+    <ms-tabs :widget="[tabs2]" :ref="tabs2" />
   </div>
 </ms-panel>
 `
@@ -36,6 +37,21 @@ avalon.each(tabTitle, (i, tab) => {
 export default {
   name: 'ms-tabs-panel',
   template,
+  data () {
+    return {
+      tabs1: {
+        tabs,
+        index: 0,
+        trigger: 'hover',
+        delay: 500
+      },
+      tabs2: {
+        tabs,
+        index: 0,
+        trigger: 'click'
+      }
+    }
+  },
   methods: {
     beforeSwitch (newIndex, oldIndex) {
       //avalon.log('beforeSwitch', newIndex, oldIndex)
@@ -45,21 +61,8 @@ export default {
     }
   },
   // 模板书写组件:widget的值必须与ref一致,当前组件可通过ref对应的值获取到子组件的vmodel
-  components: [{
-    component: Panel,
-    $$ref: 'panel',
-    props: {
-      noFooter: true
-    }
-  }, {
-    component: Tabs,
-    $$ref: 'tabs',
-    props: {
-      tabs,
-      index: 0,
-      trigger: 'hover',
-      delay: 500
-    },
-    events: ['beforeSwitch', 'afterSwitch']// 对依赖的组件关联事件,依赖组件分发事件时会自动调用
-  }]
+  components: {
+    Panel, 
+    Tabs
+  }
 }

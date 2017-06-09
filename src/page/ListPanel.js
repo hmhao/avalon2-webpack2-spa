@@ -3,7 +3,7 @@ import Pagination from '@/components/base/Pagination'
 
 let template = 
 `
-<ms-panel :widget="[$$ref.panel]">
+<ms-panel :widget="{title: '列表'}">
   <div slot="panel-bar">
     <div class="row">
       <div class="span3">
@@ -69,7 +69,7 @@ let template =
       </tr>
     </tbody>
   </table>
-  <ms-pagination :widget="[$$ref.pagination]" slot="panel-footer"></ms-pagination>
+  <ms-pagination :ref="pagination" slot="panel-footer"></ms-pagination>
 </ms-panel>
 `
 
@@ -131,11 +131,11 @@ export default {
       })
       arr.sort((a, b) => {
         if(sort == 'new'){
-          return new Date(a.create_time) < new Date(b.create_time)
+          return new Date(a.create_time) < new Date(b.create_time) ? 1 : -1
         }else if(sort == 'hot'){
-          return parseInt(a.plays) < parseInt(b.plays)
+          return parseInt(a.plays) < parseInt(b.plays) ? 1 : -1
         }else{
-          return a.id < b.id
+          return a.id < b.id ? 1 : -1
         }
       })
       let len = arr.length
@@ -149,7 +149,9 @@ export default {
         list.push(arr[i])
       }
       this.list = list
-      this.$$ref.pagination.totalPages = Math.ceil(len / video.$perNum)
+      let pagination = this.$$ref.pagination
+      pagination.currentPage = page
+      pagination.totalPages = Math.ceil(len / video.$perNum)
     },
     edit () {
 
@@ -179,16 +181,8 @@ export default {
       return STATUS[status] || '未知错误'
     }
   },
-  // 模板书写组件:widget的值必须与ref一致,当前组件可通过ref对应的值获取到子组件的vmodel
-  components: [{
-    component: Panel,
-    $$ref: 'panel',
-    props: {
-      title: ''
-    }
-  }, {
-    component: Pagination,
-    $$ref: 'pagination',
-    events: ['onPageChange'] // 对依赖的组件关联事件,依赖组件分发事件时会自动调用
-  }]
+  components: {
+    Panel,
+    Pagination
+  }
 }

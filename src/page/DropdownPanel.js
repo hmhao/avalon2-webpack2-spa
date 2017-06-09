@@ -4,7 +4,7 @@ import DropdownLi from '@/components/base/DropdownLi'
 
 let template = 
 `
-<ms-panel :widget="[$$ref.panel]">
+<ms-panel :widget="{noFooter: true}">
   <div slot="panel-bar">
     <ms-dropdown :for="d in dropdowns" :widget="[d]" />
     <ul class="nav nav-pills">
@@ -59,12 +59,9 @@ export default {
       }]
     }
   },
-  // 模板书写组件:widget的值必须与ref一致,当前组件可通过ref对应的值获取到子组件的vmodel
-  components: [{
-    component: Panel,
-    $$ref: 'panel',
-    props: {
-      noFooter: true
-    }
-  }, Dropdown, DropdownLi]
+  components: {
+    Panel, 
+    Dropdown, 
+    DropdownLi
+  }
 }

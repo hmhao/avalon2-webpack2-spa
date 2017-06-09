@@ -2,7 +2,7 @@ import Modal from '@/components/base/Modal'
 
 var template =
 `
-<ms-modal id="loginModal" :widget="[$$ref.modal]" :validate="validate">
+<ms-modal id="loginModal" :ref="modal" :validate="validate">
   <div slot="modal-title">登录框</div>
   <form class="form-horizontal" slot="modal-body">
     <div class="control-group">
@@ -111,9 +111,7 @@ export default {
       
     }
   },
-  components: [{
-    component: Modal,
-    $$ref: 'modal',// 模板书写组件:widget的值必须与ref一致,当前组件可通过ref对应的值获取到子组件的vmodel
-    events: ['onConfirm', 'onClose']// 对依赖的组件关联事件,依赖组件分发事件时会自动调用
-  }]
+  components: {
+    Modal
+  }
 }

@@ -3,9 +3,10 @@ import Accordion from '@/components/base/accordion'
 
 let template = 
 `
-<ms-panel :widget="[$$ref.panel]">
+<ms-panel :widget="{noFooter: true}">
   <div slot="panel-bar">
-    <ms-accordion :widget="[$$ref.accordion]" />
+    <ms-accordion :widget="[accordion1]" :ref="accordion1"/>
+    <ms-accordion :widget="[accordion2]" />
   </div>
 </ms-panel>
 `
@@ -37,6 +38,17 @@ accordion[0].active = true
 export default {
   name: 'ms-accordion-panel',
   template,
+  data () {
+    return {
+      accordion1: {
+        accordion
+      },
+      accordion2: {
+        accordion,
+        multiple: true
+      }
+    }
+  },
   methods: {
     onExpand (item) {
       //avalon.log('onExpand', item)
@@ -45,20 +57,8 @@ export default {
       //avalon.log('onCollapse', item)
     }
   },
-  // 模板书写组件:widget的值必须与ref一致,当前组件可通过ref对应的值获取到子组件的vmodel
-  components: [{
-    component: Panel,
-    $$ref: 'panel',
-    props: {
-      noFooter: true
-    }
-  }, {
-    component: Accordion,
-    $$ref: 'accordion',
-    props: {
-      accordion/*,
-      multiple: true*/
-    },
-    events: ['onExpand', 'onCollapse']// 对依赖的组件关联事件,依赖组件分发事件时会自动调用
-  }]
+  components: {
+    Panel,
+    Accordion
+  }
 }

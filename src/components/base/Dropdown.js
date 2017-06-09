@@ -13,7 +13,7 @@ var template =
       <a tabindex="-1" :if="!!l" 
         :attr="{href: l.href ? l.href : 'javascript:void(0)'}" 
         :click="l.cb ? l.cb($event) : avalon.noop($event)">
-        {{l && l.text ? l.text : l}}
+        {{l.text}}
       </a>
     </li>
   </ul>
@@ -23,13 +23,19 @@ var template =
 let toggleDelay = 200
 let toggleTimer
 
+let dropdownDefault = {
+  text: '',
+  href: '',
+  cb: avalon.noop
+}
+
 export default {
   name: 'ms-dropdown',
   template,
   data () {
     return {
       open: false,
-      docClickCb: avalon.noop
+      $docClickCb: avalon.noop
     }
   },
   props: {
@@ -37,17 +43,17 @@ export default {
     trigger: 'click',//click | hover
     text: '',
     list: []
-    /*
-      String
-      
-      or
-
-      Object {
-        text: String,
-        href: String,
-        cb: Function
+  },
+  beforeCreate () {
+    for (let i = 0, len = this.list.length, item; i < len; i++) {
+      item = this.list[i]
+      if (item) {
+        if (typeof item === 'string') {
+          item = {text: item}
+        }
+        this.list[i] = avalon.mix({}, dropdownDefault, item)
       }
-    */
+    }
   },
   methods: {
     onReady () {
@@ -67,13 +73,13 @@ export default {
           this.open = true
           this.onOpen && this.onOpen()
           setTimeout(()=>{
-            this.docClickCb = avalon.bind(document, 'click', this.toggleClick)
+            this.$docClickCb = avalon.bind(document, 'click', this.toggleClick)
           })
         }
       } else {
         this.open = false
         setTimeout(()=>{
-          avalon.unbind(document, 'click', this.docClickCb)
+          avalon.unbind(document, 'click', this.$docClickCb)
         })
         return false
       }

@@ -3,42 +3,43 @@ import avalon from 'avalon2'
 
 promise.polyfill()
 
-function readyHook(onReady, watch, componentRef){
+function readyHook(onReady, component){
   return function(){
-    avalon.each(watch, (i, w) => {
-      this['$$unwatch'].push(this.$watch(w.key, w.fn))
+    avalon.each(component.watch, (k, v) => {
+      this['$$unwatch'].push(this.$watch(k, v))
     })
-    avalon.each(componentRef, (i, comp) => {
-      let ref = this['$$ref'][comp.$$ref]
-      if(ref.id){
-        ref = this['$$ref'][comp.$$ref] = avalon.vmodels[ref.id]
-      }else{
-        let dirs = this.$render.directives.concat()
-        let dir
-        while(dirs.length){//采用先序遍历
-          dir = dirs.shift()
-          if(dir.is){//是组件
-            if(dir.is === comp.component.name){
-              // 将组件定义的$$ref名指向对应的组件vm
-              ref = this['$$ref'][comp.$$ref] = dir.comVm 
-              break
-            }
-            // 如果不匹配组件则将其directives加入遍历队列
-            dirs = dirs.concat(dir.innerRender.directives) 
+    delete component.watch
+
+    let dirs = this.$render.directives.concat()
+    let dir, comp
+    while(dirs.length){//采用先序遍历
+      dir = dirs.shift()
+      if (dir.type == 'ref') {//是引用指令
+        dir.node.ref = dir.expr
+      } else if (dir.type == 'widget') {//是组件指令
+        if (dir.node.ref) {
+          this.$$ref[dir.node.ref] = dir.comVm
+          delete dir.node.ref
+        }
+        // 根据子组件定义的事件自动绑定到当前组件的方法
+        avalon.each(component.components, (i, comp) => {
+          if (comp.name == dir.is && comp.events) {
+            avalon.each(comp.events, (j, event) => {
+              dir.comVm[event] = this[event]
+            })
           }
+        })
+        if (dir.innerRender) {
+          // 如果不匹配组件则将其directives加入遍历队列
+          dirs = dirs.concat(dir.innerRender.directives) 
         }
       }
-      if(ref){
-        avalon.each(comp.events, (j, event) => {
-          ref[event] = this[event]
-        })
-      }
-    })
+    }
     onReady && onReady.call(this)
   }
 }
 
-function disposeHook(onDispose){
+function disposeHook(onDispose, component){
   return function(){
     let unwatch
     while (this['$$unwatch'].length) {
@@ -60,8 +61,6 @@ avalon.registerComponent = function(component) {
     avalon.warn(component.name + ' >> data functions should return an object')
   }
 
-  let watch = []
-  let componentRef = []
   if(component.computed){
     data.$computed = avalon.mix(data.$computed || {}, component.computed)
     delete component.computed
@@ -69,12 +68,6 @@ avalon.registerComponent = function(component) {
   if(component.props){
     avalon.mix(data, component.props)
     delete component.props
-  }
-  if(component.watch){
-    avalon.each(component.watch, (key, fn) => {
-      watch.push({key, fn})// 留到onReady时添加监听
-    })
-    delete component.watch
   }
   if(component.methods){
     avalon.mix(data, component.methods)
@@ -93,25 +86,15 @@ avalon.registerComponent = function(component) {
     })
     delete component.filters
   }
+
   data['$$ref'] = {}
-  avalon.each(component.components, (key, component) => {
-    let comp = component
-    if (comp.$$ref) {
-      let ref = avalon.mix(data[comp.$$ref] || {}, {
-        is: comp.component.name
-      }, comp.props)
-      data['$$ref'][comp.$$ref] = ref
-      componentRef.push(comp)// 留到onReady时添加监听
-      comp = comp.component
-    }
+  data['$$unwatch'] = []
+  data.onReady = readyHook(data.onReady, component)
+  data.onDispose = disposeHook(data.onDispose, component)
+  avalon.each(component.components, (key, comp) => {
     avalon.registerComponent(comp)// 注册组件
   })
-  data['$$unwatch'] = []
-  if (watch.length || componentRef.length) {
-    data.onReady = readyHook(data.onReady, watch, componentRef)
-    data.onDispose = disposeHook(data.onDispose)
-  }
-
+  
   if(avalon.store){
     data.$store = avalon.store
   }
@@ -147,6 +130,10 @@ avalon.define = function (definition) {
   }
   return avalonDefine.call(avalon, definition)
 }
+
+avalon.directive('ref', {
+  priority: 3
+})
 
 let matchExpr = /^([.#])?([\w-]*)$/
 avalon.fn.mix({
