@@ -67,6 +67,7 @@ function Router (options) {
 import ListPanel from '../page/ListPanel'
 import DropdownPanel from '../page/DropdownPanel'
 import TabsPanel from '../page/TabsPanel'
+import AccordionPanel from '../page/AccordionPanel'
 
 export default new Router({
   routes: [
@@ -92,6 +93,11 @@ export default new Router({
       path: '/tabs',
       title: '标签卡',
       component: TabsPanel
+    },
+    {
+      path: '/accordion',
+      title: '手风琴',
+      component: AccordionPanel
     }
   ]
 })

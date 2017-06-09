@@ -115,6 +115,7 @@ avalon.registerComponent = function(component) {
   if(avalon.store){
     data.$store = avalon.store
   }
+  data['$$component'] = component.name
   component.defaults = data
   avalon.component(component.name, component)
 }
@@ -133,6 +134,18 @@ avalon.bootstrap = function(options) {
   let template = `<xmp :controller="${vm.$id}" :widget="{is: '${component.name}', id: '${component.name}'}"></xmp>`
   let root = document.getElementById(el)
   avalon.innerHTML(root, template)
+}
+
+let avalonDefine = avalon.define
+avalon.define = function (definition) {
+  let componentName = definition['$$component']
+  if (componentName) {
+    let component = avalon.components[componentName]
+    if (component.beforeCreate) {
+      component.beforeCreate.call(definition)
+    }
+  }
+  return avalonDefine.call(avalon, definition)
 }
 
 let matchExpr = /^([.#])?([\w-]*)$/

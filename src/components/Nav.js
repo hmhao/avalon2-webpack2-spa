@@ -24,6 +24,10 @@ export default {
         title: '标签卡',
         path: '/tabs',
         active: false
+      },{
+        title: '手风琴',
+        path: '/accordion',
+        active: false
       }]
     }
   },
