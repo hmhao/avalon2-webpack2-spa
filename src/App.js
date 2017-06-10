@@ -2,6 +2,7 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import Nav from '@/components/Nav'
 import Alert from '@/components/base/Alert'
+import Ref from '@/directives/ref'
 
 let template = 
 `
@@ -33,5 +34,8 @@ export default {
     Footer,
     Nav,
     Alert
+  },
+  directives: {
+    Ref
   }
 }

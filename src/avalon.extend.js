@@ -8,7 +8,6 @@ function readyHook(onReady, component){
     avalon.each(component.watch, (k, v) => {
       this['$$unwatch'].push(this.$watch(k, v))
     })
-    delete component.watch
 
     let dirs = this.$render.directives.concat()
     let dir, comp
@@ -18,7 +17,13 @@ function readyHook(onReady, component){
         dir.node.ref = dir.expr
       } else if (dir.type == 'widget') {//是组件指令
         if (dir.node.ref) {
-          this.$$ref[dir.node.ref] = dir.comVm
+          // 判断该子组件是否属于当前组件
+          avalon.each(component.components, (i, comp) => {
+            if (comp.name == dir.is) {
+              this.$$ref[dir.node.ref] = dir.comVm
+              return false
+            }
+          })
           delete dir.node.ref
         }
         // 根据子组件定义的事件自动绑定到当前组件的方法
@@ -94,6 +99,12 @@ avalon.registerComponent = function(component) {
   avalon.each(component.components, (key, comp) => {
     avalon.registerComponent(comp)// 注册组件
   })
+
+  if(component.directives){
+    avalon.each(component.directives, (key, directive) => {
+      avalon.registerDirective(directive)// 注册指令
+    })
+  }
   
   if(avalon.store){
     data.$store = avalon.store
@@ -101,6 +112,10 @@ avalon.registerComponent = function(component) {
   data['$$component'] = component.name
   component.defaults = data
   avalon.component(component.name, component)
+}
+
+avalon.registerDirective = function(directive) {
+  avalon.directive(directive.name, directive)
 }
 
 avalon.bootstrap = function(options) {
@@ -130,10 +145,6 @@ avalon.define = function (definition) {
   }
   return avalonDefine.call(avalon, definition)
 }
-
-avalon.directive('ref', {
-  priority: 3
-})
 
 let matchExpr = /^([.#])?([\w-]*)$/
 avalon.fn.mix({
