@@ -5,7 +5,7 @@
 * 兼容性支持IE8以下，IE8以下禁用热更新，需要手动刷新
 * [采用ES6、类vue的单文件组件书写](#component)
 （avalon组件只使用defaults来定义组件VM的属性与方法，在书写时非常混乱）
-* 父组件可通过$$ref引用子组件，但需要显式声明
+* 增加ref指令，父组件可通过$$ref引用子组件
 * 加入官网路由并改造
 * 加入es6-promise、cookie_js、[avalonx](https://github.com/hmhao/avalonx)
 * 提供基于Bootstrap2的基础组件Alert、Dropdown、Modal、Pagination、Panel、Tabs（后续待补充其他）
@@ -20,6 +20,7 @@
 * filters：组件自定义过滤器
 * events：组件对外分发事件的声明
 * components：组件依赖的子组件
+* beforeCreate：组件创建vm前会调用，可用于vm数据校验或补充
 
 <span id="component"></span>
 ```
@@ -75,7 +76,7 @@ import Modal from '@/components/base/Modal'
 
 var template =
 `
-<ms-modal id="loginModal" :widget="[$$ref.modal]" :validate="validate">
+<ms-modal id="loginModal" :ref="modal" :validate="validate">
   <div slot="modal-title">登录框</div>
   ...
 </ms-modal>
@@ -138,15 +139,11 @@ export default {
       this.validate.onManual()
       return false
     },
-    onClose () {
-      
-    }
+    onClose () {}
   },
-  components: [{
-    component: Modal,
-    $$ref: 'modal',// 模板书写组件:widget的值必须与ref一致,当前组件可通过ref对应的值获取到子组件的vmodel
-    events: ['onConfirm', 'onClose']// 对依赖的组件关联事件,依赖组件分发事件时会自动调用
-  }]
+  components: {
+    Modal
+  }
 }
 
 ```
