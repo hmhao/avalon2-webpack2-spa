@@ -2,7 +2,10 @@ let template =
 `
 <ul class="nav nav-pills nav-stacked">
   <li :for="nav in navs" :class="{active: nav.active}">
-    <a :attr="{href:'#!' + nav.path}">{{nav.title}}</a>
+    <a :attr="{href:'#!' + nav.path}" 
+       :tooltip="{title: nav.title, trigger: 'hover', placement: placement}">
+      {{nav.title}}
+    </a>
   </li>
 </ul>
 `
@@ -28,7 +31,8 @@ export default {
         title: '手风琴',
         path: '/accordion',
         active: false
-      }]
+      }],
+      placement: 'left'
     }
   },
   methods: {

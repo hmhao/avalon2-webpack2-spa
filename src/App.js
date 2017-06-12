@@ -3,6 +3,7 @@ import Footer from '@/components/Footer'
 import Nav from '@/components/Nav'
 import Alert from '@/components/base/Alert'
 import Ref from '@/directives/ref'
+import Tooltip from '@/directives/tooltip'
 
 let template = 
 `
@@ -36,6 +37,7 @@ export default {
     Alert
   },
   directives: {
-    Ref
+    Ref,
+    Tooltip
   }
 }

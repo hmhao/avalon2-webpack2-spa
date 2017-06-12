@@ -1,5 +1,5 @@
 import Panel from '@/components/base/Panel'
-import Accordion from '@/components/base/accordion'
+import Accordion from '@/components/base/Accordion'
 
 let template = 
 `
