@@ -2,13 +2,18 @@ let template =
 `
 <ul class="nav nav-pills nav-stacked">
   <li :for="nav in navs" :class="{active: nav.active}">
-    <a :attr="{href:'#!' + nav.path}" 
-       :tooltip="{title: nav.title, trigger: 'hover', placement: placement}">
+    <a :attr="{href:'#!' + nav.path}">
       {{nav.title}}
     </a>
   </li>
 </ul>
 `
+
+let navDefault = {
+  title: '',
+  path: '',
+  active: false
+}
 
 export default {
   name: 'ms-nav',
@@ -16,23 +21,26 @@ export default {
   data () {
     return {
       navs: [{
-        title: '列表',
-        path: '/list',
-        active: false
+        title: '列表(表格)',
+        path: '/list'
       },{
         title: '下拉菜单',
-        path: '/dropdown',
-        active: false
+        path: '/dropdown'
       },{
         title: '标签卡',
-        path: '/tabs',
-        active: false
+        path: '/tabs'
       },{
         title: '手风琴',
-        path: '/accordion',
-        active: false
-      }],
-      placement: 'left'
+        path: '/accordion'
+      },{
+        title: '提示工具',
+        path: '/tooltip'
+      }]
+    }
+  },
+  beforeCreate () {
+    for (let i = 0, len = this.navs.length, item; i < len; i++) {
+      this.navs[i] = avalon.mix({}, navDefault, this.navs[i])
     }
   },
   methods: {

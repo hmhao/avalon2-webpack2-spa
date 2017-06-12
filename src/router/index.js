@@ -68,6 +68,7 @@ import ListPanel from '../page/ListPanel'
 import DropdownPanel from '../page/DropdownPanel'
 import TabsPanel from '../page/TabsPanel'
 import AccordionPanel from '../page/AccordionPanel'
+import TooltipPanel from '../page/TooltipPanel'
 
 export default new Router({
   routes: [
@@ -98,6 +99,11 @@ export default new Router({
       path: '/accordion',
       title: '手风琴',
       component: AccordionPanel
+    },
+    {
+      path: '/tooltip',
+      title: '提示工具',
+      component: TooltipPanel
     }
   ]
 })
