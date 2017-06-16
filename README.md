@@ -9,7 +9,7 @@
 * 增加tooltip指令，tooltip组件使用指令实现
 * 加入官网路由并改造
 * 加入es6-promise、cookie_js、[avalonx](https://github.com/hmhao/avalonx)
-* 提供基于Bootstrap2的基础组件Accordion、Alert、Dropdown、Modal、Pagination、Panel、Tabs（后续待补充其他）
+* 提供基于Bootstrap2的基础组件Accordion、Alert、Dropdown、Grid、Modal、Pagination、Panel、Tabs（后续待补充其他）
 
 ## 组件书写
 现支持
@@ -22,6 +22,7 @@
 * events：组件对外分发事件的声明
 * components：组件依赖的子组件
 * beforeCreate：组件创建vm前会调用，可用于vm数据校验或补充
+* afterCreate：组件创建vm后会调用
 
 <span id="component"></span>
 ```

@@ -65,6 +65,7 @@ function Router (options) {
 }
 
 import ListPanel from '../page/ListPanel'
+import GridPanel from '../page/GridPanel'
 import DropdownPanel from '../page/DropdownPanel'
 import TabsPanel from '../page/TabsPanel'
 import AccordionPanel from '../page/AccordionPanel'
@@ -84,6 +85,11 @@ export default new Router({
       path: '/list',
       title: '列表',
       component: ListPanel
+    },
+    {
+      path: '/grid',
+      title: '表格',
+      component: GridPanel
     },
     {
       path: '/dropdown',

@@ -1,6 +1,6 @@
 var template =
 `
-<div class="alert fade" :class="[type ? 'alert-' + type : '']">
+<div class="alert fade" :class="[type ? 'alert-' + type : '', global ? 'alert-fixed' : '']">
   <button type="button" class="close" :visible="!autoClose" :click="close">&times;</button>
   <div class="alert-body" :html="text"></div>
 </div>
@@ -20,27 +20,30 @@ export default {
     text: '',
     type: 'info',
     autoClose: true,
-    delay: 1000
+    delay: 1000,
+    global: false
+  },
+  afterCreate () {
+    if (this.global) {
+      avalon.alert = this.alert
+    }
   },
   methods: {
-    onReady () {
-      avalon.alert = this.alert
-    },
-    alert (text, type, autoClose, delay) {
+    alert (data) {
       this.reset()
-      this.text = text
+      this.text = data.text
       let $tmp = this.$tmp
-      if (type) {
+      if (data.type) {
         $tmp.type = this.type
-        this.type = type
+        this.type = data.type
       }
-      if (autoClose) {
+      if (avalon.type(data.autoClose) != 'undefined') {
         $tmp.autoClose = this.autoClose
-        this.autoClose = autoClose || false
+        this.autoClose = !!data.autoClose
       }
-      if (delay) {
+      if (data.delay) {
         $tmp.delay = this.delay
-        this.delay = delay || 1000
+        this.delay = data.delay || 1000
       }
       this.show()
     },

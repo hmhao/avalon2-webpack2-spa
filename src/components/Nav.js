@@ -21,8 +21,11 @@ export default {
   data () {
     return {
       navs: [{
-        title: '列表(表格)',
+        title: '列表',
         path: '/list'
+      },{
+        title: '表格',
+        path: '/grid'
       },{
         title: '下拉菜单',
         path: '/dropdown'

@@ -30,7 +30,7 @@ function readyHook(onReady, component){
         avalon.each(component.components, (i, comp) => {
           if (comp.name == dir.is && comp.events) {
             avalon.each(comp.events, (j, event) => {
-              dir.comVm[event] = this[event]
+              dir.comVm[event] = this[event] || avalon.noop
             })
           }
         })
@@ -137,13 +137,18 @@ avalon.bootstrap = function(options) {
 let avalonDefine = avalon.define
 avalon.define = function (definition) {
   let componentName = definition['$$component']
+  let component
   if (componentName) {
-    let component = avalon.components[componentName]
+    component = avalon.components[componentName]
     if (component.beforeCreate) {
       component.beforeCreate.call(definition)
     }
   }
-  return avalonDefine.call(avalon, definition)
+  let vm = avalonDefine.call(avalon, definition)
+  if (component && component.afterCreate) {
+    component.afterCreate.call(vm)
+  }
+  return vm
 }
 
 let matchExpr = /^([.#])?([\w-]*)$/

@@ -18,9 +18,9 @@ let template =
         <ms-view />
       </div>
     </div>
+    <ms-alert :widget="[{global: true}]" />
   </div>
   <ms-footer />
-  <ms-alert />
 </div>
 `
 
