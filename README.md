@@ -7,6 +7,7 @@
 （avalon组件只使用defaults来定义组件VM的属性与方法，在书写时非常混乱）
 * 增加ref指令，父组件可通过$$ref引用子组件
 * 增加tooltip指令，tooltip组件使用指令实现
+* 增加datepicker指令，datepicker组件使用指令实现
 * 加入官网路由并改造
 * 加入es6-promise、cookie_js、[avalonx](https://github.com/hmhao/avalonx)
 * 提供基于Bootstrap2的基础组件Accordion、Alert、Dropdown、Grid、Modal、Pagination、Panel、Tabs（后续待补充其他）

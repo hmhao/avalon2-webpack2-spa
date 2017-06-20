@@ -38,6 +38,9 @@ export default {
       },{
         title: '提示工具',
         path: '/tooltip'
+      },{
+        title: '日期选择',
+        path: '/datepicker'
       }]
     }
   },

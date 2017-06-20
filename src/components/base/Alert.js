@@ -1,6 +1,6 @@
 var template =
 `
-<div class="alert fade" :class="[type ? 'alert-' + type : '', global ? 'alert-fixed' : '']">
+<div class="alert fade" :class="[type ? 'alert-' + type : '', global ? 'alert-fixed' : '']" :visible="visible">
   <button type="button" class="close" :visible="!autoClose" :click="close">&times;</button>
   <div class="alert-body" :html="text"></div>
 </div>
@@ -11,7 +11,7 @@ export default {
   template,
   data () {
     return {
-      $visible: false,
+      visible: false,
       $timer: 0,
       $tmp: {}
     }
@@ -69,16 +69,16 @@ export default {
           this.hide()
         }, this.delay)
       }
-      this.$visible = true
+      this.visible = true
       avalon(this.$element).addClass('in')
     },
     hide () {
-      if (!this.$visible) {
+      if (!this.visible) {
         return
       }
       clearTimeout(this.$timer)
       avalon(this.$element).removeClass('in')
-      this.$visible = false
+      this.visible = false
       this.reset()
     },
     close (evt) {
