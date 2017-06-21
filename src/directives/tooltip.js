@@ -90,7 +90,7 @@ function onEventHandler (evt) {
     case 'mouseleave':
     case 'blur': 
     case 'click0': 
-      parent.removeChild(target.tooltip)
+      avalon.contains(parent, target.tooltip) && parent.removeChild(target.tooltip)
       this.show = false
       break;
   }

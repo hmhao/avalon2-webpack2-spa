@@ -5,6 +5,7 @@ import Alert from '@/components/base/Alert'
 import Ref from '@/directives/ref'
 import Tooltip from '@/directives/tooltip'
 import Datepicker from '@/directives/datepicker'
+import Placeholder from '@/directives/placeholder'
 
 let template = 
 `
@@ -40,6 +41,7 @@ export default {
   directives: {
     Ref,
     Tooltip,
-    Datepicker
+    Datepicker,
+    Placeholder
   }
 }

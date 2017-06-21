@@ -292,7 +292,7 @@ export default {
   priority: 5,
   init () {
     let input = this.node.dom
-    if (input.nodeName != 'input' && input.type != 'text') {
+    if (input.nodeName != 'INPUT' && input.type != 'text') {
       return avalon.error('指令元素必须是type为text的input')
     }
 

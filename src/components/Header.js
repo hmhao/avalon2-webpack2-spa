@@ -12,7 +12,7 @@ let template =
       <li :for="n in navs" :class="{active: n.active}"><a :attr="{href: '#!' + n.path}">{{n.title}}</a></li>
     </ul>
     <form class="navbar-search pull-left">
-      <input type="text" class="search-query" placeholder="Search">
+      <input type="text" class="search-query" :placeholder="Search">
     </form>
     <ul class="nav pull-right">
       <li class="dropdown" :class="{open:showUserbox}" :mouseenter="toggleUserbox(true)" :mouseleave="toggleUserbox(false)" :visible="isLogin">
