@@ -27,6 +27,7 @@ export default {
       }, {
         text: 'efg',
         trigger: 'hover',
+        reverse: true,
         list: [{
           text: 'baidu',
           href: 'http://www.baidu.com',
@@ -40,7 +41,8 @@ export default {
       }],
       dropdownlis: [{
         text: 'abc',
-        list: ['1', '2', '', '3', '4']
+        list: ['1', '2', '', '3', '4'],
+        reverse: true
       }, {
         text: 'efg',
         trigger: 'hover',

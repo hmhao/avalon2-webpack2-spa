@@ -2,7 +2,7 @@ import Dropdown from '@/components/base/Dropdown'
 
 var template =
 `
-<li class="dropdown" :class="[open && 'open']" 
+<li class="dropdown" :class="[open && 'open', reverse && 'dropup']" 
      :mouseenter="toggle($event, true)" 
      :mouseleave="toggle($event, false)" 
      :click="toggle($event)">

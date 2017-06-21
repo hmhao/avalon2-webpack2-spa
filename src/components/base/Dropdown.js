@@ -1,6 +1,6 @@
 var template =
 `
-<div :class="[type, open && 'open']" 
+<div :class="[type, open && 'open', reverse && 'dropup']" 
      :mouseenter="toggle($event, true)" 
      :mouseleave="toggle($event, false)" 
      :click="toggle($event)">
@@ -42,6 +42,7 @@ export default {
     type: 'dropdown',//dropdown | btn-group
     trigger: 'click',//click | hover
     text: '',
+    reverse: false,
     list: []
   },
   beforeCreate () {
