@@ -17,9 +17,7 @@ avalon.registerComponent({
       })
     },
     update: function(route){
-      if(route.path !== '/index'){
-        this.component = `<xmp :widget="{is: '${route.component}', id: '${route.component}'}"></xmp>`
-      }
+      this.component = `<xmp :widget="{is: '${route.component}', id: '${route.component}'}"></xmp>`
     }
   }
 })
@@ -64,6 +62,7 @@ function Router (options) {
   })
 }
 
+import IndexPanel from '../page/IndexPanel'
 import ListPanel from '../page/ListPanel'
 import GridPanel from '../page/GridPanel'
 import DropdownPanel from '../page/DropdownPanel'
@@ -80,7 +79,8 @@ export default new Router({
     },
     {
       path: '/index',
-      title: '首页'
+      title: '首页',
+      component: IndexPanel
     },
     {
       path: '/list',
