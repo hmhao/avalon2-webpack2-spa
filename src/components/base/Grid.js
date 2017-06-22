@@ -10,21 +10,17 @@ let template =
     <thead>
     <tr>
       <th :for="col in columns" :css="{width:col.width}" :click="sort(col)">
-        <div>
-          {{col.title}}
-          <span class="pull-right" :visible="col.sortOrder">
-            <i :class="['icon-arrow-' + col.sortOrder]"></i>
-          </span>
-        </div>
+        <span class="pull-right" :visible="col.sortOrder">
+          <i :class="['icon-arrow-' + col.sortOrder]"></i>
+        </span>
+        {{col.title}}
       </th>
     </tr>
     </thead>
       <tbody>
         <tr :for="(rowIndex, item) in rows"
             :class="{'info':item.selected}" :click="toggleSelect(item)">
-            <td :for="col in columns">
-              <div :html="dealValue(item, col, rowIndex)"></div>
-            </td>
+            <td :for="col in columns" :html="dealValue(item, col, rowIndex)"></td>
         </tr>
       </tbody>
   </table>

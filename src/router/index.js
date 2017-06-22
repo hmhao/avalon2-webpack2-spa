@@ -70,6 +70,7 @@ import TabsPanel from '../page/TabsPanel'
 import AccordionPanel from '../page/AccordionPanel'
 import TooltipPanel from '../page/TooltipPanel'
 import DatepickerPanel from '../page/DatepickerPanel'
+import TreePanel from '../page/TreePanel'
 
 export default new Router({
   routes: [
@@ -116,6 +117,11 @@ export default new Router({
       path: '/datepicker',
       title: '日期选择',
       component: DatepickerPanel
+    },
+    {
+      path: '/tree',
+      title: '树组件',
+      component: TreePanel
     }
   ]
 })

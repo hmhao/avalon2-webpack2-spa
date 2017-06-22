@@ -41,6 +41,9 @@ export default {
       },{
         title: '日期选择',
         path: '/datepicker'
+      },{
+        title: '树组件',
+        path: '/tree'
       }]
     }
   },

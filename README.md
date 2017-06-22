@@ -10,7 +10,7 @@
 * 加入cookie_js、[avalonx](https://github.com/hmhao/avalonx)
 * 增加ref指令，父组件可通过$$ref引用子组件
 * 提供组件指令placeholder、tooltip、datepicker
-* 提供基于Bootstrap2的基础组件Accordion、Alert、Dropdown、Grid、Modal、Pagination、Panel、Tabs、Typeahead（后续待补充其他）
+* 提供基于Bootstrap2的基础组件Accordion、Alert、Dropdown、Grid、Modal、Pagination、Panel、Tabs、Tree、Typeahead（后续待补充其他）
 
 ## 组件书写
 现支持

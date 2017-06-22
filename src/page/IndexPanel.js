@@ -12,7 +12,7 @@ let template =
       <li>[采用ES6、类vue的单文件组件书写](#component)
       （avalon组件只使用defaults来定义组件VM的属性与方法，在书写时非常混乱）</li>
       <li>加入官网路由并改造</li>
-      <li>加入es6-promise、cookie_js、<a href="https://github.com/hmhao/avalonx">avalonx</a></li>
+      <li>加入cookie_js、<a href="https://github.com/hmhao/avalonx">avalonx</a></li>
     </ul>
     <h3>组件书写</h3>
     <ul>
