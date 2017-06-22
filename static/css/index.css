@@ -1,3 +1,9 @@
+/*https://github.com/twbs/bootstrap/issues/6548*/
+.navbar .navbar-inner,
+.navbar-inverse .navbar-inner {
+    filter: none;
+    background-image: none;
+}
 .navbar-search .search-query {
   line-height: 20px;
 }

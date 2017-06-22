@@ -1,3 +1,4 @@
+import Typeahead from '@/components/base/typeahead'
 import Login from '@/components/dialog/Login'
 
 let template = 
@@ -12,7 +13,7 @@ let template =
       <li :for="n in navs" :class="{active: n.active}"><a :attr="{href: '#!' + n.path}">{{n.title}}</a></li>
     </ul>
     <form class="navbar-search pull-left">
-      <input type="text" class="search-query" :placeholder="Search">
+      <ms-typeahead :class="'search-query'" :placeholder="Search" :widget="[$typeahead]"/>
     </form>
     <ul class="nav pull-right">
       <li class="dropdown" :class="{open:showUserbox}" :mouseenter="toggleUserbox(true)" :mouseleave="toggleUserbox(false)" :visible="isLogin">
@@ -47,7 +48,11 @@ export default {
         title: '首页',
         path: '/index',
         active:false
-      }]
+      }],
+      $typeahead: {
+        $source: ['Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','Florida','Georgia','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Dakota','North Carolina','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'],
+        itemLength: 5
+      }
     }
   },
   computed: {
@@ -78,6 +83,7 @@ export default {
     }
   },
   components: {
+    Typeahead,
     Login
   }
 }
