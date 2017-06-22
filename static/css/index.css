@@ -812,10 +812,10 @@
 }
 .datepicker-time input{
   width: 20px;
-  padding:2px;
+  padding: 2px;
   text-align: center;
   display: inline-block;
-  border:1px solid #ccc;
+  border: 1px solid #ccc;
   margin-top: 7px;
 }
 .datepicker-time span{
@@ -856,4 +856,71 @@
 }
 .datepicker-btn .btn {
   margin-left: 0px;
+}
+
+/*tree*/
+.tree{
+  white-space: nowrap;
+}
+.tree,.tree ul{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 16px;
+}
+.tree ul>li{
+  padding-left: 1.2em;
+}
+.tree-hidden{
+  visibility: hidden;
+}
+.tree-toggle{
+  font-size: 0.8em;
+  vertical-align: middle;
+  cursor: pointer;
+  padding: 0.1em;
+}
+.tree-toggle:hover{
+  color: #888
+}
+.tree-checkbox{
+  vertical-align: middle;
+  cursor: pointer;
+}
+.tree-checkbox0 {
+  color: #ccc;
+  opacity: 0.4;
+  filter: alpha(opacity=40);
+}
+.tree-checkbox1 {
+  color: #000;
+}
+.tree-checkbox2 {
+  color: #888;
+  opacity: 0.6;
+  filter: alpha(opacity=60);
+}
+.tree-node-content{
+  display: inline-block;
+  padding: 0 2px;
+  cursor: pointer;
+}
+.tree-node-content:hover{
+  background-color: #e2e2e2;
+}
+.tree-node-content>.glyphicon{
+  vertical-align: middle;
+  position: static;
+}
+.tree-node-select{
+  background-color: #3385FF;
+  color: #fff;
+}
+.tree-node-select:hover{
+  background-color: #3385FF;
+}
+.tree-text{
+  vertical-align: middle;
+  display: inline-block;
+  padding-left: 0.2em;
 }
