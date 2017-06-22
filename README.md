@@ -1,5 +1,5 @@
 # avalon2-webpack2-spa
->该项目不直接修改avalon2源码，只是在其基础上扩展
+>该项目不直接修改avalon2源码，只是在其基础上扩展。[演示地址](https://hmhao.github.io/avalon2-webpack2-spa/)
 
 ## 说明
 * 整合avalon2和webpack2，支持webpack热更新
@@ -7,7 +7,7 @@
 * [采用ES6、类vue的单文件组件书写](#component)
 （avalon组件只使用defaults来定义组件VM的属性与方法，在书写时非常混乱）
 * 加入官网路由并改造
-* 加入es6-promise、cookie_js、[avalonx](https://github.com/hmhao/avalonx)
+* 加入cookie_js、[avalonx](https://github.com/hmhao/avalonx)
 * 增加ref指令，父组件可通过$$ref引用子组件
 * 提供组件指令placeholder、tooltip、datepicker
 * 提供基于Bootstrap2的基础组件Accordion、Alert、Dropdown、Grid、Modal、Pagination、Panel、Tabs、Typeahead（后续待补充其他）
