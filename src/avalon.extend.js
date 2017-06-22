@@ -1,7 +1,4 @@
-import promise from 'es6-promise'
 import avalon from 'avalon2'
-
-promise.polyfill()
 
 function readyHook(onReady, component){
   return function(){
