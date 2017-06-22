@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <script type="text/javascript">
+        //该页面需要部署到同根域的域名下
+        //document.domain = "同根域的域名";
+    </script>
+</head>
+<body>
+<script type="text/javascript">
+    var isIE = (navigator.appVersion.indexOf("MSIE") != -1) ? true : false;
+    var req;
+    var xhr = {
+        send: function (options, complete) {
+            if (window.XMLHttpRequest) {
+                req = new XMLHttpRequest();
+            } else if (window.ActiveXObject) {
+                req = new ActiveXObject("Microsoft.XMLHttp");
+            }
+            if (req) {
+                req.open(options.type, options.url, options.async);//与服务端建立连接(请求方式post或get，地址,true表示异步)
+                req.setRequestHeader('Content-Type', options.contentType);
+
+                if (isIE) { //if IE
+                    //IE6、IE7 support js.onreadystatechange
+                    req.onreadystatechange = complete;
+                } else {
+                    //Firefox2、Firefox3、Safari3.1+、Opera9.6+ support js.onload
+                    req.onload = complete;
+                }
+                req.send(( options.hasContent && options.data ) || null);
+            }
+        }
+    };
+</script>
+</body>
+</html>
