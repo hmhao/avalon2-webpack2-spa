@@ -150,7 +150,7 @@ avalon.define = function (definition) {
 
 let matchExpr = /^([.#])?([\w-]*)$/
 avalon.fn.mix({
-  is: function (expr) {
+  is (expr) {
     let isMatch = false
     let match = matchExpr.exec(expr)
     if(match){
@@ -162,7 +162,7 @@ avalon.fn.mix({
     }
     return isMatch
   },
-  parent: function (selector) {
+  parent (selector) {
     let elem = this.element
     let msElem
     if(elem){
@@ -177,7 +177,7 @@ avalon.fn.mix({
     }
     return avalon(null)
   },
-  sibling: function(selector) {
+  sibling (selector) {
     let elem = this.element
     let n = elem
     let msElem
@@ -192,8 +192,40 @@ avalon.fn.mix({
       }
     }
     return avalon(null)
-  }
-});
+  },
+  one (type, fn, phase) {
+    if (this[0]) {
+      let handle = (e) => {  
+        fn(e)
+        avalon.unbind(this[0], type, handle)
+      }  
+      return avalon.bind(this[0], type, handle, phase);
+    }
+  }  
+})
+
+avalon.support = {
+  transition: (function () {
+    let transitionEnd = (function () {
+      let el = document.createElement('transition'),
+          transEndEventNames = {
+             'WebkitTransition' : 'webkitTransitionEnd',
+             'MozTransition'    : 'transitionend',
+             'OTransition'      : 'oTransitionEnd otransitionend',
+             'transition'       : 'transitionend'
+          },
+          name
+      for (name in transEndEventNames){
+        if (el.style[name] !== undefined) {
+          return transEndEventNames[name]
+        }
+      }
+    })()
+    return transitionEnd && {
+      end: transitionEnd
+    }
+  })()
+}
 
 var keys = {
   esc: 27,

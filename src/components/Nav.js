@@ -44,6 +44,9 @@ export default {
       },{
         title: '树组件',
         path: '/tree'
+      },{
+        title: '轮播',
+        path: '/carousel'
       }]
     }
   },

@@ -71,6 +71,7 @@ import AccordionPanel from '../page/AccordionPanel'
 import TooltipPanel from '../page/TooltipPanel'
 import DatepickerPanel from '../page/DatepickerPanel'
 import TreePanel from '../page/TreePanel'
+import CarouselPanel from '../page/CarouselPanel'
 
 export default new Router({
   routes: [
@@ -122,6 +123,11 @@ export default new Router({
       path: '/tree',
       title: '树组件',
       component: TreePanel
+    },
+    {
+      path: '/carousel',
+      title: '轮播',
+      component: CarouselPanel
     }
   ]
 })
