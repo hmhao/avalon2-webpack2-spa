@@ -1,6 +1,6 @@
 let template =
 `
-<div class="carousel slide">
+<div class="carousel">
   <!-- Carousel items -->
   <div class="carousel-inner">
     <div class="item" 
@@ -31,8 +31,7 @@ let itemDefault = {
   img: '',
   href: 'javascript:void(0)',
   caption: '',
-  active: false,
-  action: 'enter'
+  active: false
 }
 
 let indicatorDefault = {
@@ -115,17 +114,17 @@ export default {
       if (this.$index == index) {
         return this.pause().cycle()
       }
-      this.slide(index > this.$index ? 'next' : 'prev', index)
+      this.change(index > this.$index ? 'next' : 'prev', index)
     },
     next () {
       if (this.$sliding) return
-      this.slide('next')
+      this.change('next')
     },
     prev () {
       if (this.$sliding) return
-      this.slide('prev')
+      this.change('prev')
     },
-    slide (type, nextIndex) {
+    change (type, nextIndex) {
       nextIndex = avalon.type(nextIndex) === 'undefined' ? this.fixIndex(this.$index + (type == 'next' ? 1 : -1)) : nextIndex
 
       let isCycling = this.$timer,
@@ -133,7 +132,7 @@ export default {
           activeItem = this.items[this.$index],
           nextItem = this.items[nextIndex]
 
-      this.beforeSlide(type, this.$index)
+      this.beforeChange(type, this.$index)
       this.$sliding = true
 
       isCycling && this.pause()
@@ -146,16 +145,18 @@ export default {
           $activeItem = avalon(activeItem.$element),
           $nextItem = avalon(nextItem.$element),
           complete = () => {
-            $activeItem.removeClass(['active', direction].join(' '))
-            $nextItem.removeClass([type, direction].join(' ')).addClass('active')
+            $activeItem.removeClass(direction)
+            $nextItem.removeClass([type, direction].join(' '))
+            activeItem.active = false
+            nextItem.active = true
             this.indicators[nextIndex].active = true
             this.$sliding = false
             this.$index = nextIndex
-            this.afterSlide(type, this.$index)
+            this.afterChange(type, this.$index)
             isCycling && this.cycle()
           }
 
-      if (avalon.support.transition && $element.hasClass('slide')) {
+      if (avalon.support.transition) {
         $nextItem.addClass(type)
         $nextItem[0].offsetWidth // force reflow
         $activeItem.addClass(direction)
@@ -166,5 +167,5 @@ export default {
       }
     }
   },
-  events: ['beforeSlide', 'afterSlide']// 组件对外分发事件的声明,让用户重写
+  events: ['beforeChange', 'afterChange']// 组件对外分发事件的声明,让用户重写
 }
