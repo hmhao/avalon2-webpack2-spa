@@ -6,10 +6,10 @@ let template =
   <div slot="panel-bar">
     <h1>Basic</h1>
     <ul>
-      <li><a href="#!/router">/</a></li>
-      <li><a href="#!/router/foo">/foo</a></li>
-      <li><a href="#!/router/bar">/bar</a></li>
-      <li><a href="#!/router/bar/baz">/bar/baz</a></li>
+      <li><ms-router-link :widget="[{to: '/router', text: '/'}]"/></li>
+      <li><ms-router-link :widget="[{to: '/router/foo', text: '/foo'}]"/></li>
+      <li><ms-router-link :widget="[{to: '/router/bar', text: '/bar'}]"/></li>
+      <li><ms-router-link :widget="[{to: '/router/bar/baz', text: '/bar/baz'}]"/></li>
     </ul>
     <ms-router-view />
   </div>

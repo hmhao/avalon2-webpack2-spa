@@ -6,7 +6,7 @@
 * 兼容性支持IE8以下，IE8以下禁用热更新，需要手动刷新
 * [采用ES6、类vue的单文件组件书写](#component)
 （avalon组件只使用defaults来定义组件VM的属性与方法，在书写时非常混乱）
-* 加入官网路由并改造，实现嵌套路由
+* 加入官网路由并改造，实现嵌套路由(使用[ms-router-link](https://github.com/hmhao/avalon2-webpack2-spa/blob/master/src/router/base/components/link.js)和[ms-router-view](https://github.com/hmhao/avalon2-webpack2-spa/blob/master/src/router/base/components/view.js))
 * 加入cookie_js、[avalonx](https://github.com/hmhao/avalonx)
 * 增加ref指令，父组件可通过$$ref引用子组件
 * 提供组件指令placeholder、tooltip、datepicker
@@ -41,6 +41,21 @@ export default new Router({
 })
 ```
 上面书写完成例子参考：[router](https://github.com/hmhao/avalon2-webpack2-spa/blob/master/src/router/index.js)
+
+## 路由使用
+```
+<ul>
+  <li><ms-router-link :widget="[{to: '/router', text: '/'}]" /></li>
+  <li><ms-router-link :widget="[{to: '/router/foo', text: '/foo'}]" /></li>
+</ul>
+
+<ul>
+  <ms-router-link :for="nav in navs" :widget="[{to: nav.path, text: nav.title, activeClass: 'active', tag: 'li'}]" />
+</ul>
+
+<ms-router-view />
+```
+上面书写完成例子参考：[Nav](https://github.com/hmhao/avalon2-webpack2-spa/blob/master/src/components/Nav.js)
 
 ## 组件书写
 现支持

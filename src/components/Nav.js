@@ -1,19 +1,9 @@
 let template = 
 `
 <ul class="nav nav-pills nav-stacked">
-  <li :for="nav in navs" :class="{active: nav.active}">
-    <a :attr="{href:'#!' + nav.path}">
-      {{nav.title}}
-    </a>
-  </li>
+  <ms-router-link :for="nav in navs" :widget="[{to: nav.path, activeClass: 'active', text: nav.title, tag: 'li'}]" />
 </ul>
 `
-
-let navDefault = {
-  title: '',
-  path: '',
-  active: false
-}
 
 export default {
   name: 'ms-nav',
@@ -51,22 +41,6 @@ export default {
         title: '嵌套路由',
         path: '/router'
       }]
-    }
-  },
-  beforeCreate () {
-    for (let i = 0, len = this.navs.length, item; i < len; i++) {
-      this.navs[i] = avalon.mix({}, navDefault, this.navs[i])
-    }
-  },
-  methods: {
-    onReady () {
-      avalon.router.subscribe(this.update)
-    },
-    update (route){
-      let path = route.path
-      avalon.each(this.navs, (i, nav)=>{
-        nav.active = path === nav.path
-      })
     }
   }
 }

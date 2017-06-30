@@ -1,9 +1,9 @@
 import mmRouter from './mmRouter'
 import view from './components/view'
-//import link from './components/link'
+import link from './components/link'
 
 avalon.registerComponent(view)
-//avalon.registerComponent(link)
+avalon.registerComponent(link)
 
 function Router (options) {
   if (!(this instanceof Router)) {
