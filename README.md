@@ -6,11 +6,41 @@
 * 兼容性支持IE8以下，IE8以下禁用热更新，需要手动刷新
 * [采用ES6、类vue的单文件组件书写](#component)
 （avalon组件只使用defaults来定义组件VM的属性与方法，在书写时非常混乱）
-* 加入官网路由并改造
+* 加入官网路由并改造，实现嵌套路由
 * 加入cookie_js、[avalonx](https://github.com/hmhao/avalonx)
 * 增加ref指令，父组件可通过$$ref引用子组件
 * 提供组件指令placeholder、tooltip、datepicker
 * 提供基于Bootstrap2的基础组件Accordion、Alert、Dropdown、Grid、Modal、Pagination、Panel、Tabs、Tree、Typeahead（后续待补充其他）
+
+## 路由书写
+```
+export default new Router({
+  routes: [{
+    path: ['/', '/#'],
+    redirect: '//index' //必须使用双斜杠,mmRouter的urlFormate过滤掉第一个斜杠
+  }, {
+    path: '/index',
+    title: '首页',
+    component: IndexPanel
+  }, {
+    path: '/router',
+    title: '嵌套路由',
+    component: RouterPanel,
+    children: [{ 
+      path: 'foo', 
+      component: Foo 
+    }, { 
+      path: 'bar', 
+      component: Bar,  
+      children: [{ 
+          path: 'baz', 
+          component: Baz 
+      }]
+    }]
+  }]
+})
+```
+上面书写完成例子参考：[router](https://github.com/hmhao/avalon2-webpack2-spa/blob/master/src/router/index.js)
 
 ## 组件书写
 现支持
