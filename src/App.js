@@ -17,7 +17,7 @@ let template =
         <ms-nav />
       </div>
       <div class="span10">
-        <ms-view />
+        <ms-router-view />
       </div>
     </div>
     <ms-alert :widget="[{global: true}]" />

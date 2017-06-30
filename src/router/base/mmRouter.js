@@ -69,7 +69,7 @@ avalon.mix(storage, {
         avalon.Array.ensure(array, this._pathToRegExp(path, opts))
     },
     //判定当前URL与已有状态对象的路由规则是否符合
-    route: function (path, query) {
+    to: function (path, query) {
         path = path.trim()
         var rules = this.rules
         for (var i = 0, el; el = rules[i++]; ) {
@@ -113,7 +113,7 @@ avalon.mix(storage, {
      */
     navigate: function (hash, mode) {
         var parsed = parseQuery(hash)
-        var newHash = this.route(parsed.path, parsed.query)
+        var newHash = this.to(parsed.path, parsed.query)
         if(isLegalPath(newHash)){
             hash = newHash
         }

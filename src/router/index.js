@@ -1,67 +1,4 @@
-import mmRouter from './mmRouter'
-
-avalon.registerComponent({
-  name: 'ms-view',
-  template: '<div :html="component"></div>',
-  data () {
-    return {
-      component: ''
-    }
-  },
-  methods: {
-    onReady: function(e) {
-      let router = avalon.router.vm
-      this.update(router.route)
-      router.$watch('route', (route) => {
-        this.update(router.route)
-      })
-    },
-    update: function(route){
-      this.component = `<xmp :widget="{is: '${route.component}', id: '${route.component}'}"></xmp>`
-    }
-  }
-})
-
-function Router (options) {
-  this.$id = 'router';
-  this.$routes = {};
-  this.route = {};
-  this.add = function (route) {
-    if(route.redirect){
-      avalon.router.when(route.path, route.redirect, function(info){
-        let path = (info.path.charAt(0) === '/' ? info.path : '/' + info.path) + info.query
-        avalon.router.navigate(path, 2)
-      })
-    }else{
-      this.$routes[route.path] = route
-      avalon.router.add(route.path, function() {
-        let self = avalon.router.vm
-        let route = self.$routes[this.path]
-        self.route = {
-          path: route.path,// 路由路径
-          component: route.component ? route.component.name : ''
-        }
-        avalon.title.text = route.title
-      })
-    }
-  };
-
-  avalon.ready(()=>{
-    (options.routes || []).forEach(route => {
-      let html, vm
-      if(route.component){
-        avalon.registerComponent(route.component)
-      }
-      this.add(route)
-    });
-    let vm = avalon.define(this);
-    avalon.router.vm = vm;
-    avalon.history.start({
-      hashPrefix: ''
-    });
-  })
-}
-
+import Router from './base'
 import IndexPanel from '../page/IndexPanel'
 import ListPanel from '../page/ListPanel'
 import GridPanel from '../page/GridPanel'
@@ -72,6 +9,11 @@ import TooltipPanel from '../page/TooltipPanel'
 import DatepickerPanel from '../page/DatepickerPanel'
 import TreePanel from '../page/TreePanel'
 import CarouselPanel from '../page/CarouselPanel'
+
+import RouterPanel from '../page/RouterPanel'
+import Foo from '../page/router/Foo'
+import Bar from '../page/router/Bar'
+import Baz from '../page/router/Baz'
 
 export default new Router({
   routes: [
@@ -128,6 +70,27 @@ export default new Router({
       path: '/carousel',
       title: '轮播',
       component: CarouselPanel
+    },
+    {
+      path: '/router',
+      title: '嵌套路由',
+      component: RouterPanel,
+      children: [
+        { 
+          path: 'foo', 
+          component: Foo 
+        },
+        { 
+          path: 'bar', 
+          component: Bar,  
+          children: [
+            { 
+              path: 'baz', 
+              component: Baz 
+            }
+          ]
+        }
+      ]
     }
   ]
 })

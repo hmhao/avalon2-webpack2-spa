@@ -64,9 +64,7 @@ export default {
   methods: {
     onReady () {
       avalon.store.dispatch('autoLogin')
-      let router = avalon.router.vm
-      this.update(router.route)
-      router.$watch('route', this.update)
+      avalon.router.subscribe(this.update)
     },
     update (route){
       let path = route.path

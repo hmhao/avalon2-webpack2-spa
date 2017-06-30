@@ -47,6 +47,9 @@ export default {
       },{
         title: '轮播',
         path: '/carousel'
+      },{
+        title: '嵌套路由',
+        path: '/router'
       }]
     }
   },
@@ -57,11 +60,7 @@ export default {
   },
   methods: {
     onReady () {
-      let router = avalon.router.vm
-      this.update(router.route)
-      router.$watch('route', (route) => {
-        this.update(router.route)
-      })
+      avalon.router.subscribe(this.update)
     },
     update (route){
       let path = route.path
