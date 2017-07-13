@@ -397,7 +397,8 @@
   direction: ltr;
 }
 .datepicker-inline {
-  width: 220px;
+  width: 224px;
+  position: relative;
 }
 .datepicker.datepicker-rtl {
   direction: rtl;
@@ -748,10 +749,11 @@
 .datepicker tfoot tr th {
   cursor: pointer;
 }
+.datepicker .datepicker-switch.active,
 .datepicker .datepicker-switch:hover,
 .datepicker .prev:hover,
 .datepicker .next:hover,
-.datepicker tfoot tr th:hover {
+.datepicker tfoot tr th.today:hover {
   background: #eee;
 }
 .datepicker .cw {
@@ -811,9 +813,10 @@
   *display: inline;
 }
 .datepicker-time input{
-  width: 20px;
+  width: 62px;
   padding: 2px;
   text-align: center;
+  *text-align: left;
   display: inline-block;
   border: 1px solid #ccc;
   margin-top: 7px;
@@ -822,6 +825,8 @@
   display: inline-block;
   border:1px solid #ccc;
   border-width: 1px 0;
+  margin-top: 7px;
+  *margin-top: 8px;
   padding: 2px 0;
   *padding: 1px 0;
   *line-height: 22px;
