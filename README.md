@@ -7,10 +7,10 @@
 * [采用ES6、类vue的单文件组件书写](#component)
 （avalon组件只使用defaults来定义组件VM的属性与方法，在书写时非常混乱）
 * 加入官网路由并改造，实现嵌套路由(使用[ms-router-link](https://github.com/hmhao/avalon2-webpack2-spa/blob/master/src/router/base/components/link.js)和[ms-router-view](https://github.com/hmhao/avalon2-webpack2-spa/blob/master/src/router/base/components/view.js))
-* 加入cookie_js、[avalonx](https://github.com/hmhao/avalonx)
+* 加入cookie_js、[avalonx](https://github.com/hmhao/avalonx)(状态管理)
 * 增加ref指令，父组件可通过$$ref引用子组件
 * 提供组件指令placeholder、tooltip、datepicker
-* 提供基于Bootstrap2的基础组件Accordion、Alert、Dropdown、Grid、Modal、Pagination、Panel、Tabs、Tree、Typeahead（后续待补充其他）
+* 提供基于Bootstrap2的基础组件Accordion、Alert、Datepicker、Dropdown、Grid、Modal、Pagination、Panel、Tabs、Tree、Typeahead（后续待补充其他）
 
 ## 路由书写
 ```
