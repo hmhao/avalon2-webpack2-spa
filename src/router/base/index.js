@@ -65,12 +65,28 @@ Router.prototype.register = function (route) {
       if (!route) return
       if (route.title)
         avalon.title.text = route.title
+      
       let matched = []
+      let lazy = []
+      let component, componentName
       do {
-        matched.unshift(route.component.name)
+        component = route.component
+        componentName = component.name
+        if (avalon.isFunction(component)) {
+          if (!component.loadedName) {
+            lazy[matched.length] = component
+          } else {
+            componentName = component.loadedName
+          }
+        }
+        matched.push(componentName)
       } while (route = route.parent)
-      avalon.router.route = avalon.mix({depth: 0, matched}, this)
-      self.dispatch()
+
+      lazyload(lazy, matched, () => {
+        matched.reverse()
+        avalon.router.route = avalon.mix({depth: 0, matched}, this)
+        self.dispatch()
+      })
     })
   }
   if (route.children && route.children.length) {
@@ -79,6 +95,26 @@ Router.prototype.register = function (route) {
       childRoute.path = route.path + '/' + childRoute.path
       this.register(childRoute)
     })
+  }
+}
+
+function lazyload (lazy, matched, next) {
+  if (lazy.length) {
+    let loads = []
+    lazy.forEach((getComponent, index) => {
+      loads.push(new Promise(getComponent)
+        .then(function(module){
+          let component = module['default']
+          avalon.registerComponent(component)
+          matched[index] = component.name
+          getComponent.loadedName = component.name
+        })
+      )
+    })
+    Promise.all(loads)
+      .then(next)
+  } else {
+    next()
   }
 }
 

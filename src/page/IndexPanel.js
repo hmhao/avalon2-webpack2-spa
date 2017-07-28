@@ -11,8 +11,8 @@ let template =
       <li>兼容性支持IE8以下，IE8以下禁用热更新，需要手动刷新</li>
       <li>[采用ES6、类vue的单文件组件书写](#component)
       （avalon组件只使用defaults来定义组件VM的属性与方法，在书写时非常混乱）</li>
-      <li>加入官网路由并改造</li>
-      <li>加入cookie_js、<a href="https://github.com/hmhao/avalonx">avalonx</a></li>
+      <li>加入官网路由并改造，实现嵌套路由(使用<a href="https://github.com/hmhao/avalon2-webpack2-spa/blob/master/src/router/base/components/link.js" target="_blank">ms-router-link</a>和<a href="https://github.com/hmhao/avalon2-webpack2-spa/blob/master/src/router/base/components/view.js" target="_blank">ms-router-view</a>)，支持路由懒加载(<a href="https://github.com/hmhao/avalon2-webpack2-spa/blob/master/src/router/index.js" target="_blank">参考</a>)</li>
+      <li>加入cookie_js、<a href="https://github.com/hmhao/avalonx">avalonx(状态管理)</a></li>
     </ul>
     <h3>组件书写</h3>
     <ul>

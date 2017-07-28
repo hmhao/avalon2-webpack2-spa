@@ -1,0 +1,2 @@
+webpackJsonp([0],{100:function(e,n,t){"use strict";n.__esModule=!0;n["default"]={name:"ms-router-bar",template:"\n<div>\n  <h2>{{ msg }}</h2>\n  <ms-router-view />\n</div>\n",data:function(){return{msg:"This is Bar!"}}}},101:function(e,n,t){"use strict";n.__esModule=!0;n["default"]={name:"ms-router-baz",template:"\n<div>\n  <h3>Baz</h3>\n  <p>I am loaded in the same chunk with Bar.</p>\n</div>\n"}}});
+//# sourceMappingURL=0.js.map

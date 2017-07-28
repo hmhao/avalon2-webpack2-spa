@@ -2,7 +2,8 @@ import Router from './base'
 import IndexPanel from '../page/IndexPanel'
 import ListPanel from '../page/ListPanel'
 import GridPanel from '../page/GridPanel'
-import DropdownPanel from '../page/DropdownPanel'
+//import DropdownPanel from '../page/DropdownPanel'
+const DropdownPanel = r => require.ensure([], () => r(require('../page/DropdownPanel')), 'group-dropdown')
 import TabsPanel from '../page/TabsPanel'
 import AccordionPanel from '../page/AccordionPanel'
 import TooltipPanel from '../page/TooltipPanel'
@@ -12,8 +13,10 @@ import CarouselPanel from '../page/CarouselPanel'
 
 import RouterPanel from '../page/RouterPanel'
 import Foo from '../page/router/Foo'
-import Bar from '../page/router/Bar'
-import Baz from '../page/router/Baz'
+//import Bar from '../page/router/Bar'
+//import Baz from '../page/router/Baz'
+const Bar = r => require.ensure([], () => r(require('../page/router/Bar')), 'group-bar')
+const Baz = r => require.ensure([], () => r(require('../page/router/Baz')), 'group-bar')
 
 export default new Router({
   routes: [
@@ -78,7 +81,7 @@ export default new Router({
       children: [
         { 
           path: 'foo', 
-          component: Foo 
+          component: Foo
         },
         { 
           path: 'bar', 
