@@ -7,6 +7,8 @@ import Tooltip from '@/directives/tooltip'
 import Datepicker from '@/directives/datepicker'
 import Placeholder from '@/directives/placeholder'
 
+import '@/assets/css/style.css'
+
 let template = 
 `
 <div>
