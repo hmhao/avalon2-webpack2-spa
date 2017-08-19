@@ -1,5 +1,5 @@
 # avalon2-webpack2-spa
->该项目不直接修改avalon2源码，只是在其基础上扩展。[演示地址](https://hmhao.github.io/avalon2-webpack2-spa/)
+>该项目不直接修改avalon2源码，只是在其基础上扩展。[演示地址](https://hmhao.github.io/avalon2-webpack2-spa/)，[详细说明](https://github.com/hmhao/avalon2-webpack2-spa/wiki)
 
 ## 说明
 * 整合avalon2和webpack2，支持webpack热更新
@@ -10,7 +10,7 @@
 * 加入cookie_js、[avalonx](https://github.com/hmhao/avalonx)(状态管理)
 * 增加ref指令，父组件可通过$$ref引用子组件
 * 提供组件指令placeholder、tooltip、datepicker
-* 提供基于Bootstrap2的基础组件Accordion、Alert、Datepicker、Dropdown、Grid、Modal、Pagination、Panel、Tabs、Tree、Typeahead（后续待补充其他）
+* 提供基于Bootstrap2的基础组件Accordion、Alert、Carousel、Datepicker、Dropdown、Grid、Modal、Pagination、Panel、Tabs、Tree、Typeahead（后续待补充其他）。使用方法查看[WIKI](https://github.com/hmhao/avalon2-webpack2-spa/wiki/%E7%BB%84%E4%BB%B6)
 
 ## 路由书写
 ```
@@ -57,145 +57,9 @@ export default new Router({
 ```
 上面书写完成例子参考：[Nav](https://github.com/hmhao/avalon2-webpack2-spa/blob/master/src/components/Nav.js)
 
-## 组件书写
-现支持
-* data：组件内部属性
-* props：来自父组件的数据
-* computed：组件计算属性
-* methods：组件方法及钩子函数
-* watch：组件内部观察属性变化
-* filters：组件自定义过滤器
-* events：组件对外分发事件的声明
-* components：组件依赖的子组件
-* beforeCreate：组件创建vm前会调用，可用于vm数据校验或补充
-* afterCreate：组件创建vm后会调用
+## [组件书写及使用](https://github.com/hmhao/avalon2-webpack2-spa/wiki/%E7%BB%84%E4%BB%B6)
 
-<span id="component"></span>
-```
-// 定义模板
-var template =
-`
-<div class="modal hide fade" :visible="visible">
-  ...
-</div>
-`
-// 定义组件
-export default {
-  name: 'ms-modal',
-  template,
-  data () {
-    return {
-      visible: false
-    }
-  },
-  props: {
-    confirmText: '确定',
-    closeText: '取消'
-  },
-  computed: {},
-  methods: {
-    onReady () {},
-    onDispose () {},
-    show () {},
-    hide () {},
-    confirm (evt) {
-      if (this.onConfirm && this.onConfirm(evt) === false) {
-        return
-      }
-      this.hide()
-    },
-    close (evt) {
-      this.onClose && this.onClose(evt)
-      this.hide()
-    }
-  },
-  watch: {},
-  filters: {},
-  events: ['onConfirm', 'onClose'],// 组件对外分发事件的声明,让用户重写
-  components: []
-}
-```
-上面书写完成例子参考：[Modal](https://github.com/hmhao/avalon2-webpack2-spa/blob/master/src/components/base/Modal.js)
-
-## 组件使用
-```
-// 加入依赖的子组件
-import Modal from '@/components/base/Modal'
-
-var template =
-`
-<ms-modal id="loginModal" :ref="modal" :validate="validate">
-  <div slot="modal-title">登录框</div>
-  ...
-</ms-modal>
-`
-
-// 定义表单校验
-let validate = {
-  validateInBlur: false,
-  onManual: avalon.noop,//占位,IE6-8必须指定,avalon会重写这方法
-  onSuccess (reasons) {},
-  onError (reasons) {},
-  onValidateAll (reasons) {
-    let vm = this._ms_validate_.vm
-    if (reasons.length) {
-      this._ms_validate_.onError(reasons)
-    } else {
-      vm.submit()
-    }
-  }
-}
-
-export default {
-  name: 'ms-login',
-  template,
-  data () {
-    return {
-      username: '',
-      password: '',
-      autoLogin: false,
-      validate
-    }
-  },
-  methods: {
-    ...avalon.store.mapActions(['login', 'logout']),// avalonx
-    init (isLogin) {
-      if (!isLogin) {
-        this.$$ref.modal.show()
-      } else {
-        this.logout()
-      }
-    },
-    submit () {
-      this.login({
-        usernick: this.username,
-        autoLogin: this.autoLogin
-      })
-      this.$$ref.modal.hide()
-      this.reset()
-    },
-    reset () {
-      this.username = ''
-      this.password = ''
-      this.autoLogin = false
-    },
-    onConfirm () {
-      //由于avalon在validate中的上下文会改变,而validate没有指向当前vm的引用
-      //因此需要想办法使validate可以拿到当前vm
-      //validate上下文为定义validate指令的元素,可以从这个元素入手
-      this.$element._ms_validate_.vm = this//将当前vm注入
-      this.validate.onManual()
-      return false
-    },
-    onClose () {}
-  },
-  components: {
-    Modal
-  }
-}
-
-```
-上面书写完成例子参考：[Login](https://github.com/hmhao/avalon2-webpack2-spa/blob/master/src/components/dialog/Login.js)
+参考例子：[Login](https://github.com/hmhao/avalon2-webpack2-spa/blob/master/src/components/dialog/Login.js)
 
 
 ## 使用
