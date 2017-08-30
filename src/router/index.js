@@ -29,11 +29,21 @@ export default new Router({
       title: '首页',
       component: IndexPanel
     },
-    {
+    {//可匹配/list或/list/或/list/123
       path: '/list',
       title: '列表',
-      component: ListPanel
+      component: ListPanel,
+      children: [
+        { 
+          path: ':id'
+        }
+      ]
     },
+    /*{//下面的写法无法匹配/list
+      path: '/list/:id',
+      title: '列表',
+      component: ListPanel
+    },*/
     {
       path: '/grid',
       title: '表格',

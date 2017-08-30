@@ -61,7 +61,13 @@ Router.prototype.register = function (route) {
     let self = this
     self.routes[route.path] = route
     avalon.router.add(route.path, function() {
-      let route = self.routes[this.path]
+      let route
+      avalon.each(self.routes, (path) => {
+        if (this.regexp.test(path)) {
+          route = self.routes[path]
+          return false
+        }
+      })
       if (!route) return
       if (route.title)
         avalon.title.text = route.title
@@ -71,7 +77,7 @@ Router.prototype.register = function (route) {
       let component, componentName
       do {
         component = route.component
-        componentName = component.name
+        componentName = component && component.name || ''
         if (avalon.isFunction(component)) {
           if (!component.loadedName) {
             lazy[matched.length] = component
@@ -79,7 +85,7 @@ Router.prototype.register = function (route) {
             componentName = component.loadedName
           }
         }
-        matched.push(componentName)
+        componentName && matched.push(componentName)
       } while (route = route.parent)
 
       lazyload(lazy, matched, () => {
